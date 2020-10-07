@@ -15,10 +15,18 @@ import firestore from './firebase/firebase'
 //   }
   
 const App = ()=>{
-  const ref = firestore.collection("users").doc("DPyOrXTzvXRLkhUZZNrT")
- const a =  ref.update({username:"kuykuy"})
-  console.log(a)
-  
+  const ref = firestore.collection("users")
+  const query = ref.orderBy("age","asc")
+ query.limit(1)
+  query.get()
+  .then((querySnapshot)=>{
+    querySnapshot.forEach((doc)=>{
+      if(doc.exists){
+
+        console.log(doc.get("age"))
+      }
+    })
+  })
   return <div></div>
 }
 
